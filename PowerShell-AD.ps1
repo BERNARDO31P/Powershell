@@ -18,6 +18,10 @@ $TabControl.Add_SelectionChanged({
     if ($TabControl.SelectedIndex -eq 1) {
         Update-UserList
     }
+
+    if ($TabControl.Items[1].IsSelected -eq $true) {
+        $UserEdit.Visibility = 'Hidden'
+    }
 })
 
 # API credentials and domain controller details
@@ -41,7 +45,6 @@ function Edit-ADUser {
     Import-Module ActiveDirectory
 
     $Domain = "kaesereiag-bno.local"
-    $OrganizationalUnit = "CN=Users,DC=kaesereiag-bno,DC=local"
 
     # User details
     $NewUserFirstName = $FirstNameEdit.text
@@ -51,10 +54,10 @@ function Edit-ADUser {
     $NewUserPrincipalName = "$NewUserUsername@$Domain"
     $NewUserName = "$NewUserFirstName $NewUserLastName"
 
-    # Create the new user
+    # Edit the new user
     try {
-        # TODO: FIX NAME ATTRIBUTE!!!
-        Set-ADUser -Identity $global:EditingID -Replace @{name="$NewUserName";userprincipalname="$NewUserPrincipalName";givenname="$NewUserFirstName";sn="$NewUserLastName";samaccountname="$NewUserUsername";mail="$NewUserEmail"} -Server $DomainController -Credential $Credential
+        Set-ADUser -Identity $global:EditingID -Replace @{userprincipalname="$NewUserPrincipalName";givenname="$NewUserFirstName";sn="$NewUserLastName";samaccountname="$NewUserUsername";mail="$NewUserEmail"} -Server $DomainController -Credential $Credential
+        Rename-ADObject -Identity $global:EditingID -NewName $NewUserName -Server $DomainController -Credential $Credential
 
         $ResultEdit.Foreground = 'Green'
         $ResultEdit.Text = "User $NewUserUsername has been edited successfully."
