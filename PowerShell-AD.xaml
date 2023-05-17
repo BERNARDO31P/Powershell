@@ -1,0 +1,106 @@
+<Window
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
+    Name="MainWindow"
+    Title="AD Configurator"
+    Style="{DynamicResource MaterialDesignWindow}"
+    WindowStartupLocation="CenterScreen"
+    ResizeMode="CanResize"
+    Height="800"
+    Width="600"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    TextElement.FontSize="14"
+    TextElement.FontFamily="Roboto"
+    TextOptions.TextFormattingMode="Ideal"
+    TextOptions.TextRenderingMode="Auto"
+    Background="{DynamicResource MaterialDesignPaper}" >
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.BlueGrey.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.DeepOrange.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <TabControl Name="TabControl" Style="{StaticResource MaterialDesignNavigatilRailTabControl}" TabStripPlacement="Top"
+                materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                materialDesign:ColorZoneAssist.Mode="PrimaryDark"
+                materialDesign:NavigationRailAssist.SelectionCornerRadius="50 10 10 10"
+                materialDesign:NavigationRailAssist.ShowSelectionBackground="True">
+                <materialDesign:NavigationRailAssist.FloatingContent>
+                </materialDesign:NavigationRailAssist.FloatingContent>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Height="auto" Width="auto">
+                        <materialDesign:PackIcon Kind="Plus" Width="24" Height="24" HorizontalAlignment="Center" />
+                        <TextBlock Text="Add" HorizontalAlignment="Center" />
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid Name="UserAdd">
+                    <Label Content="First Name:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                    <TextBox Name="FirstNameAdd" HorizontalAlignment="Left" Height="23" Margin="100,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250"/>
+
+                    <Label Content="Last Name:" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top"/>
+                    <TextBox Name="LastNameAdd" HorizontalAlignment="Left" Height="23" Margin="100,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250"/>
+
+                    <Label Content="Username:" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top"/>
+                    <TextBox Name="UsernameAdd" HorizontalAlignment="Left" Height="23" Margin="100,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250"/>
+
+                    <Label Content="Email:" HorizontalAlignment="Left" Margin="10,115,0,0" VerticalAlignment="Top"/>
+                    <TextBox Name="EmailAdd" HorizontalAlignment="Left" Height="23" Margin="100,115,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250"/>
+
+                    <Label Content="Password:" HorizontalAlignment="Left" Margin="10,150,0,0" VerticalAlignment="Top"/>
+                    <PasswordBox Name="PasswordAdd" HorizontalAlignment="Left" Height="23" Margin="100,150,0,0" VerticalAlignment="Top" Width="250"/>
+
+                    <Button Name="ButtonAdd" Content="Add user" HorizontalAlignment="Left" Margin="270,200,0,0" VerticalAlignment="Top" Width="100"/>
+
+                    <TextBlock Name="ResultAdd" HorizontalAlignment="Left" Margin="10,240,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="380" Foreground="Red"/>
+                </Grid>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Height="auto" Width="auto">
+                        <materialDesign:PackIcon Kind="AccountMultipleOutline" Width="24" Height="24" HorizontalAlignment="Center" />
+                        <TextBlock Text="Users" HorizontalAlignment="Center" />
+                    </StackPanel>
+                </TabItem.Header>
+                <DataGrid Name="UserList" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Name="EditMenuItem" Header="Edit"/>
+                            <MenuItem Name="DeleteMenuItem" Header="Delete"/>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                        <DataGridTextColumn Header="Username" Binding="{Binding SamAccountName}" />
+                        <DataGridTextColumn Header="Email" Binding="{Binding EmailAddress}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+        </TabControl>
+        <Grid Name="UserEdit" Visibility="Collapsed" Margin="0,72.5,10,10">
+            <Label Content="First Name:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+            <TextBox Name="FirstNameEdit" HorizontalAlignment="Left" Height="23" Margin="100,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250"/>
+
+            <Label Content="Last Name:" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top"/>
+            <TextBox Name="LastNameEdit" HorizontalAlignment="Left" Height="23" Margin="100,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250"/>
+
+            <Label Content="Username:" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top"/>
+            <TextBox Name="UsernameEdit" HorizontalAlignment="Left" Height="23" Margin="100,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250"/>
+
+            <Label Content="Email:" HorizontalAlignment="Left" Margin="10,115,0,0" VerticalAlignment="Top"/>
+            <TextBox Name="EmailEdit" HorizontalAlignment="Left" Height="23" Margin="100,115,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250"/>
+
+            <Button Name="ButtonEdit" Content="Save user" HorizontalAlignment="Left" Margin="270,200,0,0" VerticalAlignment="Top" Width="100"/>
+
+            <TextBlock Name="ResultEdit" HorizontalAlignment="Left" Margin="10,240,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="380" Foreground="Red"/>
+        </Grid>
+    </Grid>
+</Window>
